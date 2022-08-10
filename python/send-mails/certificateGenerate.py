@@ -45,21 +45,3 @@ def certificateGenerate(
 
     cv.save()
     return fileName
-
-name="Mateus Fernandes Santos"
-action="monitor"
-eventName="Seminário FLIFS virtual"
-theme="Letramento Literário: propostas, práticas e possibilidades"
-time="19 a 21 de julho de 2022"
-workload=20
-
-text = "Certificamos que " + name.upper() + ", participou como " + action.upper() + " do "
-text += eventName.upper() + ", cujo o tema foi " + theme.upper() + ", no período de "
-text += time.upper() + ", com carga horária de " + str(workload) + " horas."
-
-certificateGenerate(
-    name=name,
-    text=text,
-    count=1,
-    templateName="duas_assinaturas.jpg"
-)

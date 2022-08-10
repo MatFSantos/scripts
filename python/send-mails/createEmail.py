@@ -45,7 +45,7 @@ def createEmail(
     emailMsg.attach(MIMEText(body,subtype))
 
     if file:
-        pdfFile = open("planilhas/"+file, 'rb', encoding="utf8")
+        pdfFile = open("certificates/"+file, 'rb')
         pdf = MIMEBase("application","octet-stream")
         pdf.set_payload(pdfFile.read())
         encoders.encode_base64(pdf)
