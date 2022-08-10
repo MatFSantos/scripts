@@ -2,6 +2,8 @@ import os
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 
 """
     método que cria uma email com 'subject' e 'body' e envia a partir do servidor e conta
@@ -25,7 +27,8 @@ def createEmail(
     subject: str,
     toEmail: str,
     body: str | None = None,
-    subtype: str ="html"
+    subtype: str ="html",
+    file: str | None = None
 ) -> MIMEMultipart: 
 
     # monta o email
@@ -40,5 +43,15 @@ def createEmail(
         body = bodyFile.read()
         bodyFile.close()
     emailMsg.attach(MIMEText(body,subtype))
+
+    if file:
+        pdfFile = open("planilhas/"+file, 'rb', encoding="utf8")
+        pdf = MIMEBase("application","octet-stream")
+        pdf.set_payload(pdfFile.read())
+        encoders.encode_base64(pdf)
+
+        pdf.add_header("Content-Disposition", f"attachment; filename={file}")
+        pdfFile.close()
+        emailMsg.attach(pdf)
 
     return emailMsg
