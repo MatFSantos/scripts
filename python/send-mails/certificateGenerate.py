@@ -43,5 +43,6 @@ def certificateGenerate(
         cv.drawCentredString(x=421,y=positionY,text=line, charSpace=1)
         positionY -= 12
 
+    cv.drawCentredString(x=421,y=positionY-24,text="Feira de Santana - BA, 10 de Agosto de 2022.")
     cv.save()
     return fileName

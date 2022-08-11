@@ -1,3 +1,4 @@
+from msilib.schema import tables
 import os
 from dotenv import load_dotenv
 
@@ -8,37 +9,41 @@ from openFile import openExcel
 from createEmail import createEmail
 from certificateGenerate import certificateGenerate
 
-
 def app():
 
-    table = {"E-mail": ["ferrmathh2@gmail.com"], "Nome completo": ["Mateus Fernandes Santos"]}
+    tableName = "apend.xlsx"
+    columnName = "Nome completo"
+    columnEmail = "E-mail"
 
-    action="monitor"
+    templateName = ""
+    action="Ouvinte"
     eventName="Seminário FLIFS virtual"
     theme="Letramento Literário: propostas, práticas e possibilidades"
     time="19 a 21 de julho de 2022"
     workload=20
 
-
-    # table = openExcel(fileName="aprovados.xlsx")
+    i= 0
+    table = openExcel(fileName=tableName)
     server = getServer()
 
     i = 0
-    for aprovedEmail in table["E-mail"]:
-
-        text = "Certificamos que " + str(table["Nome completo"][i]).upper() + ", participou como " + action.upper() + " do "
+    j = 0
+    print("Enviando emails...")
+    for aprovedEmail in table[columnEmail]:
+        print(f"{i}: email para {aprovedEmail}. . .")
+        text = "Certificamos que " + str(table[columnName][i]).upper() + ", participou como " + action.upper() + " do "
         text += eventName.upper() + ", cujo o tema foi " + theme.upper() + ", no período de "
-        text += time.upper() + ", com carga horária de " + str(workload) + " horas."
+        text += time + ", com carga horária de " + str(workload) + " horas."
 
 
-        if str(table["Nome completo"][i]).__contains__("Rita"):
+        if str(table[columnName][i]) == "Rita de Cássia Brêda Mascarenhas Lima":
             templateName = "assinatura_cristiana.jpg"
-        elif str(table["Nome completo"][i]).__contains__("Cristiana"):
+        elif str(table[columnName][i]) == "Cristiana Barbosa de Oliveira ramos":
             templateName = "assinatura_rita.jpg"
         else:
             templateName = "duas_assinaturas.jpg"
         pdfName = certificateGenerate(
-            name= table["Nome completo"][i],
+            name= table[columnName][i],
             count= i,
             templateName=templateName,
             text= text,
@@ -52,6 +57,13 @@ def app():
 
         server.sendmail(email["From"],email["To"], email.as_string())
         i += 1
+        j += 1
+        print(f"email para {aprovedEmail} enviado com sucesso!\n")
+        if j >= 49:
+            print("desconectando o servidor")
+            server.quit()
+            server = getServer()
+            j = 0
     server.quit()
 
 
