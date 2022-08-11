@@ -1,5 +1,3 @@
-from msilib.schema import tables
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
