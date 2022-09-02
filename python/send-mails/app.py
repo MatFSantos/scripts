@@ -9,20 +9,19 @@ from certificateGenerate import certificateGenerate
 
 def app():
 
-    tableName = "apend.xlsx"
-    columnName = "Nome completo"
+    tableName = "coordenação.xlsx"
+    columnName = "Nome"
     columnEmail = "E-mail"
+    columnCondition = "Condição"
+    columnJob = "Título do Trabalho"
+    columnPeriod = "Período "
+    columnDate = "Data"
+    columnWorkload = "CARGA HORÁRIA"
 
     templateName = ""
-    action="Ouvinte"
-    eventName="Seminário FLIFS virtual"
-    theme="Letramento Literário: propostas, práticas e possibilidades"
-    time="19 a 21 de julho de 2022"
-    workload=20
 
     i= 0
     table = openExcel(fileName=tableName)
-    # table = {"Nome completo": ["Nélia de Medeiros Sampaio"], "E-mail": ["nmsampaio@uefs.br"]}
     server = getServer()
 
     i = 0
@@ -30,14 +29,13 @@ def app():
     print("Enviando emails...")
     for aprovedEmail in table[columnEmail]:
         print(f"{i}: email para {aprovedEmail}. . .")
-        text = "Certificamos que " + str(table[columnName][i]).upper() + ", participou como " + action.upper() + " do "
-        text += eventName.upper() + ", cujo o tema foi " + theme.upper() + ", no período de "
-        text += time + ", com carga horária de " + str(workload) + " horas."
+        text = "Certificamos que " + str(table[columnName][i]).upper() + " " + str(table[columnCondition][i]) + " " + str(table[columnJob][i])
+        text += ", no período de  " + str(table[columnDate][i]) + "."
 
 
-        if str(table[columnName][i]) == "Rita de Cássia Brêda Mascarenhas Lima":
+        if str(aprovedEmail) == "rbreda@uefs.br":
             templateName = "assinatura_cristiana.jpg"
-        elif str(table[columnName][i]) == "Cristiana Barbosa de Oliveira ramos":
+        elif str(aprovedEmail) == "cristiana@uefs.br":
             templateName = "assinatura_rita.jpg"
         else:
             templateName = "duas_assinaturas.jpg"
