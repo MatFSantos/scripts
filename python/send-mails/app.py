@@ -22,6 +22,7 @@ def app():
 
     i= 0
     table = openExcel(fileName=tableName)
+    # table = {"Nome completo": ["Nélia de Medeiros Sampaio"], "E-mail": ["nmsampaio@uefs.br"]}
     server = getServer()
 
     i = 0
