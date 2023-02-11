@@ -3,25 +3,20 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from conectServer import getServer
-from openFile import openExcel
 from createEmail import createEmail
 from certificateGenerate import certificateGenerate
 
-def app():
-
-    tableName = "coordenação.xlsx"
-    columnName = "Nome"
-    columnEmail = "E-mail"
-    columnCondition = "Condição"
-    columnJob = "Título do Trabalho"
-    columnPeriod = "Período "
-    columnDate = "Data"
-    columnWorkload = "CARGA HORÁRIA"
-
-    templateName = ""
+def app(
+    table: str,
+    templateName: str,
+    columnEmail: str,
+    text: str,
+    signature: str,
+    fields
+):
+    print(fields)
 
     i= 0
-    table = openExcel(fileName=tableName)
     server = getServer()
 
     i = 0
@@ -29,25 +24,20 @@ def app():
     print("Enviando emails...")
     for aprovedEmail in table[columnEmail]:
         print(f"{i}: email para {aprovedEmail}. . .")
-        text = "Certificamos que " + str(table[columnName][i]).upper() + " " + str(table[columnCondition][i]) + " " + str(table[columnJob][i])
-        text += ", no período de  " + str(table[columnDate][i]) + "."
-
-
-        if str(aprovedEmail) == "rbreda@uefs.br":
-            templateName = "assinatura_cristiana.jpg"
-        elif str(aprovedEmail) == "cristiana@uefs.br":
-            templateName = "assinatura_rita.jpg"
-        else:
-            templateName = "duas_assinaturas.jpg"
+        args = {}
+        for field in fields:
+            args[field] = table[field][i]
+            
+        newText = text.format(**args)
         pdfName = certificateGenerate(
-            name= table[columnName][i],
-            count= i,
+            fileName=f"cert_{i}.pdf" ,
             templateName=templateName,
-            text= text,
+            signature=signature,
+            text= newText,
         )
 
         email = createEmail(
-            subject="Certificado do Seminário FLIFS 2022",
+            subject="Certificado do III Simpósio de Biotecnologia",
             toEmail=aprovedEmail,
             file=pdfName,
         )
@@ -61,7 +51,3 @@ def app():
             server.quit()
             server = getServer()
             j = 0
-    server.quit()
-
-
-app()
