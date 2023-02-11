@@ -85,7 +85,7 @@ try:
                 columnEmail = None
         
         # Captura o nome da coluna de nome e verifica se tá certo.
-        print('Nome da coluna de e-mail no arquivo: ')
+        print('Nome da coluna de nome no arquivo: ')
         columnName = None
         while columnName is None:
             columnName = input()
