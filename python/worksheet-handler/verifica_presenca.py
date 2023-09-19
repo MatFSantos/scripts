@@ -9,14 +9,14 @@ print("=======================================================================")
 print("========= Bem vindo ao script de verificação de presença ==============")
 print("=======================================================================")
 print("Esse script faz a verificação a partir de uma lista de inscritos.\n")
-print("Fornceça alguns dados a seguir para continuar com a verificação de presença.\n")
+print("Forneça alguns dados a seguir para continuar com a verificação de presença.\n")
 
 print("\n*obs:* Para fazer a verificação de presença é preciso que os arquivos xlsx")
 print("estejam na pasta 'planilhas' e possuam colunas de email e de nome.\n")
 
 try:
     file_path = None
-    print("Nome do arquivo e inscritos ( omita a extensão ): ")
+    print("Nome do arquivo de inscritos ( omita a extensão ): ")
     while file_path is None:
         file_path = input()
         try:

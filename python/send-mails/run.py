@@ -47,7 +47,7 @@ def run():
             print("Um erro inesperado aconteceu. . .")
             print("tente novamente: ")
             columnEmail = None
-    print("\n\n\n\n\nInforme o texto do email: ")
+    print("\n\n\n\n\nInforme o texto do certificado: ")
     text = None
     while text is None:
         text = input()
