@@ -10,7 +10,7 @@ try:
     print("========= Bem vindo ao script de verificação de presença ==============")
     print("=======================================================================")
 
-    print("Fornceça alguns dados a seguir para continuar com a verificação de presença:\n")
+    print("Forneça alguns dados a seguir para continuar com a verificação de presença:\n")
 
     print("\n*obs:* Para fazer a verificação de presença é preciso que os arquivos xlsx")
     print("estejam na pasta 'planilhas' e possuam colunas de email e de nome.\n")
